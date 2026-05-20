@@ -3,10 +3,7 @@ package bookstoread;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -19,5 +16,10 @@ public class BookShelf {
     }
     public void add(String... booksToAdd) {
         books.addAll(Arrays.asList(booksToAdd));
+    }
+
+    public List<String> arrange() {
+        books.sort(Comparator.naturalOrder());
+        return books;
     }
 }
