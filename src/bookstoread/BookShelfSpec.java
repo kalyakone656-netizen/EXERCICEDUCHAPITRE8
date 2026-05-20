@@ -19,6 +19,7 @@ public class BookShelfSpec {
     private Book effectiveJava;
     private Book codeComplete;
     private Book mythicalManMonth;
+    private Book refactoring;
 
     @BeforeEach
     void init() {
@@ -40,6 +41,12 @@ public class BookShelfSpec {
                 "The Mythical Man-Month",
                 "Frederick Phillips Brooks",
                 LocalDate.of(1975, Month.JANUARY, 1)
+        );
+
+        refactoring = new Book(
+                "Refactoring",
+                "Martin Fowler",
+                LocalDate.of(2018, Month.NOVEMBER, 20)
         );
     }
 
