@@ -139,4 +139,22 @@ public class BookShelfSpec {
         assertThat(booksByYear.get(Year.of(2018)))
                 .containsExactly(refactoring);
     }
+
+    @Test
+    void bookshelfGroupedByUserProvidedCriteria() {
+        shelf.add(effectiveJava, codeComplete, mythicalManMonth, refactoring);
+
+        Map<String, List<Book>> booksByAuthor = shelf.groupBy(Book::getAuthor);
+
+        assertThat(booksByAuthor)
+                .containsKey("Joshua Bloch")
+                .containsKey("Steve McConnell")
+                .containsKey("Frederick Phillips Brooks")
+                .containsKey("Martin Fowler");
+
+        assertThat(booksByAuthor.get("Joshua Bloch"))
+                .containsExactly(effectiveJava);
+        assertThat(booksByAuthor.get("Martin Fowler"))
+                .containsExactly(refactoring);
+    }
 }
