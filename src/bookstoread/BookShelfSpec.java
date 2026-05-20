@@ -108,6 +108,17 @@ public class BookShelfSpec {
                     Comparator.<Book>naturalOrder().reversed());
             assertEquals(asList(mythicalManMonth, effectiveJava, codeComplete), books);
         }
+        @Test
+        @DisplayName("by book publication date in ascending order")
+        void bookshelfArrangedByPublicationDate() {
+            shelf.add(effectiveJava, codeComplete, mythicalManMonth);
+            List<Book> books = shelf.arrange(
+                    Comparator.comparing(Book::getPublishedOn)
+            );
+            assertThat(books).isSortedAccordingTo(
+                    Comparator.comparing(Book::getPublishedOn)
+            );
+        }
     }
 
     @Nested
