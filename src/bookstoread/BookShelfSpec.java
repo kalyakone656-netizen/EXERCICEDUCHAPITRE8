@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.time.Year;
+import java.util.Map;
+import static org.assertj.core.api.Assertions.assertThat;
 public class BookShelfSpec {
 
     private BookShelf shelf;
@@ -115,5 +117,26 @@ public class BookShelfSpec {
         shelf.add(effectiveJava, codeComplete, mythicalManMonth);
         List<Book> books = shelf.arrange(Comparator.<Book>naturalOrder().reversed());
         assertEquals(asList(mythicalManMonth, effectiveJava, codeComplete), books, () -> "Books in a bookshelf are arranged in descending order of book title");
+    }
+    @Test
+    void bookshelfGroupedByPublicationYear() {
+        shelf.add(effectiveJava, codeComplete, mythicalManMonth, refactoring);
+
+        Map<Year, List<Book>> booksByYear = shelf.groupByPublicationYear();
+
+        assertThat(booksByYear)
+                .containsKey(Year.of(2008))
+                .containsKey(Year.of(2004))
+                .containsKey(Year.of(1975))
+                .containsKey(Year.of(2018));
+
+        assertThat(booksByYear.get(Year.of(2008)))
+                .containsExactly(effectiveJava);
+        assertThat(booksByYear.get(Year.of(2004)))
+                .containsExactly(codeComplete);
+        assertThat(booksByYear.get(Year.of(1975)))
+                .containsExactly(mythicalManMonth);
+        assertThat(booksByYear.get(Year.of(2018)))
+                .containsExactly(refactoring);
     }
 }
