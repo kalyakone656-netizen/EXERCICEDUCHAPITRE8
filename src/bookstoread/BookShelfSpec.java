@@ -105,9 +105,11 @@ public class BookShelfSpec {
         void bookshelfArrangedByUserProvidedCriteria() {
             shelf.add(effectiveJava, codeComplete, mythicalManMonth);
             List<Book> books = shelf.arrange(
-                    Comparator.<Book>naturalOrder().reversed());
+                    Comparator.<Book>naturalOrder().reversed()
+            );
             assertEquals(asList(mythicalManMonth, effectiveJava, codeComplete), books);
         }
+
         @Test
         @DisplayName("by book publication date in ascending order")
         void bookshelfArrangedByPublicationDate() {
